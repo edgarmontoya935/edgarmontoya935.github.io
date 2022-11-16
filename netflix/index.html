@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix - Vikingos</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/main.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="shortcut icon" href="./imagenes/logonetflix.png" type="image/x-icon">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="#" class="logo"><img src="imagenes/logo.png" alt="Logo Netflix"></a>
+            <ul class="navigation">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Series</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Lastest</a></li>
+                <li><a href="#">My List</a></li>
+            </ul>
+            <div class="search">
+                <input type="text" placeholder="Search">
+                <button class="search__icon"><span class="material-icons">search</span></button>
+            </div>
+        </header>
+        <section class="banner">
+            <img src="imagenes/vikingos.jpg" alt="Vikings Banner" title="Vikings Banner" class="bg">
+            <span class="banner__shadow"></span>
+            <div class="content">
+            <img src="imagenes/vikingoslogo.png" class="movietitle" alt="Logo Netflix">
+                <h4>
+                    <span>2013</span>
+                    <span><i>16+</i></span>
+                    <span>6 Temporadas</span>
+                    <span>Serie</span>
+                </h4>
+                <p>Este drama realista recuenta las hazañas del vikingo Ragnar Lothbrok durante la expansión nórdica al retar a un líder falto de visión.</p>
+                <div class="buttons">
+                    <a href="#">Play</a>
+                    <a href="#">My List</a>
+                </div>
+            </div>
+            <a href="#" class="play" onclick="VideoTrailer()"><img src="imagenes/play.png">Watch Trailer</a>
+        </section>
+        <section class="trailer">
+            <video src="./imagenes/vikingstrailer.mp4" controls="true"></video>
+            <img src="./imagenes/close.png" class="close" onclick="VideoTrailer()">
+        </section>
+    </main>
+</body>
+</html>
