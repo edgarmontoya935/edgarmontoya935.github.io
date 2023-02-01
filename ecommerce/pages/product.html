@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto E-Commerce | Productos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!--------- HEADER & NAVBAR --------->
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="../index.html"><img src="../imagenes/logo.png" width="125px" class="logo"></a>
+                </div>
+                <nav>
+                    <ul id="menuItems">
+                        <li><a href="../index.html">Inicio</a></li>
+                        <li><a href="../pages/products.html">Productos</a></li>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="../pages/account.html">Cuenta</a></li>
+                    </ul>
+                </nav>
+                <a href="../pages/cart.html"><img src="../imagenes/cart.png" width="30px" height="30px"></a>
+                <img src="../imagenes/menu.png" class="menu-icon" onclick="menuToggle()">
+            </div>
+        </div>
+
+    <!---------- Productos CONTENT ---------->
+
+    <div class="small-container detail-product">
+        <div class="row">
+            <div class="col-2">
+                <img src="../imagenes/gallery-1.jpg" width="100%" id="productImg">
+
+
+                <div class="small-img-row">
+                    <div class="small-img-col">
+                        <img src="../imagenes/gallery-1.jpg" width="100%" class="small-img">
+                    </div>
+
+                    <div class="small-img-col">
+                        <img src="../imagenes/gallery-2.jpg" width="100%" class="small-img">
+                    </div>
+
+                    <div class="small-img-col">
+                        <img src="../imagenes/gallery-3.jpg" width="100%" class="small-img">
+                    </div>
+
+                    <div class="small-img-col">
+                        <img src="../imagenes/gallery-4.jpg" width="100%" class="small-img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <p>Inicio / Remera Roja Estampada</p>
+                <h1>Remera Roja Estampada</h1>
+                <h4>$30.00</h4>
+                <select>
+                    <option>Seleccionar Talle</option>
+                    <option>XL</option>
+                    <option>L</option>
+                    <option>M</option>
+                    <option>S</option>
+                </select>
+                <input type="number" value="1">
+                <a href="" class="button">Agregar al carrito</a>
+                <h3>Detalles del producto <i class="fa fa-indent"></i></h3>
+                <br>
+                <p>Mejora tu estilo para el verano con la remera estampada de Puma&#8482 cortesia de RedStore. Combinala con unos pantalones cortos para tu entrenamiento del dia o unos jeans para salir por la noche con tus amigos.</p>
+            </div>
+        </div>
+    </div>
+
+    <!---------- Productos ---------->
+    
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>Productos relacionados</h2>
+            <p>Ver mas</p>
+        </div>
+    </div>
+    
+    <div class="small-container">
+
+        <div class="row">
+
+            <div class="col-4">
+                <img src="../imagenes/product-9.jpg">
+                <h4>Reloj Roadster Negro</h4>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                <p>$35.00</p>
+            </div>
+
+            <div class="col-4">
+                <img src="../imagenes/product-10.jpg">
+                <h4>Zapatillas Puma Negras</h4>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p>$65.00</p>
+            </div>
+
+            <div class="col-4">
+                <img src="../imagenes/product-11.jpg">
+                <h4>Zapatillas Running Gris</h4>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p>$40.00</p>
+            </div>
+
+            <div class="col-4">
+                <img src="../imagenes/product-12.jpg">
+                <h4>Joggin Nike Negro</h4>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p>$30.00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-------- Footer ---------->
+
+    <div class="footer">
+        <div class="footer__container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Descarga nuestra App</h3>
+                    <p>Disponible para Android y IOS Phone.</p>
+                    <div class="app-logo">
+                        <img src="../imagenes/play-store.png">
+                        <img src="../imagenes/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <a href="../index.html"><img src="../imagenes/logo-white.png"></a>
+                    <p>Nuestro propósito es hacer que el placer y los beneficios del deporte sean accesibles para todos.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Links Utiles</h3>
+                    <ul>
+                        <li><a href="#">Cupones</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Afiliados</a></li>
+                        <li><a href="#">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Redes Sociales</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.youtube.com/" target="_blank">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">&#169 Copyright 2022 - Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/product.js"></script>
+</body>
+</html>
