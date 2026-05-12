@@ -1,70 +1,735 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ SEO ═══════════════════════════════════════════════════════════ -->
+  <title>Edgar Montoya — Full Stack Developer & AI Enthusiast</title>
+  <meta name="description" content="Full Stack Developer especializado en interfaces web modernas con React, JavaScript y TypeScript. Integrando IA en proyectos con OpenAI, Claude y n8n." />
+  <meta name="keywords" content="full stack developer, frontend, React, JavaScript, TypeScript, Node.js, OpenAI, IA, desarrollo web, Argentina" />
+  <meta name="author" content="Edgar Montoya" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://edgarmontoya935.github.io/" />
+  <meta property="og:title" content="Edgar Montoya — Full Stack Developer & AI Enthusiast" />
+  <meta property="og:description" content="Desarrollo experiencias web modernas y escalables. Stack: React, TypeScript, Node.js, MongoDB. Integrando IA con OpenAI, Claude y n8n." />
+  <meta property="og:image" content="https://edgarmontoya935.github.io/assets/og-preview.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Edgar Montoya — Full Stack Developer" />
+  <meta name="twitter:description" content="Full Stack Developer & AI Enthusiast. React · TypeScript · Node.js · OpenAI · Claude." />
+  <meta name="twitter:image" content="https://edgarmontoya935.github.io/assets/og-preview.jpg" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Edgar Montoya",
+    "url": "https://edgarmontoya935.github.io/",
+    "jobTitle": "Full Stack Developer",
+    "description": "Full Stack Developer & AI Enthusiast especializado en React, TypeScript y Node.js.",
+    "sameAs": [
+      "https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/",
+      "https://github.com/edgarmontoya935"
+    ]
+  }
+  </script>
+  <!-- ════════════════════════════════════════════════════════════════════ -->
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ═══ ESTILOS DE LAS SECCIONES NUEVAS ══════════════════════════════ -->
+  <style>
+    /* ── Variables globales ── */
+    :root {
+      --accent:    #4f8ef7;   /* Cambiá este color por tu color principal */
+      --accent-ai: #a855f7;   /* Color para las pills de IA */
+      --bg:        #0d0d0d;
+      --bg-card:   #161616;
+      --bg-card2:  #1e1e1e;
+      --border:    rgba(255,255,255,0.08);
+      --text:      #f0f0f0;
+      --muted:     rgba(240,240,240,0.5);
+      --radius:    12px;
+    }
+
+    /* ── Reset mínimo para las nuevas secciones ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Util ── */
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+    .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    section { padding: 96px 0; }
+
+    /* ════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════ */
+    #about {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media(max-width:768px){ .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .about-avatar {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--bg-card2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      color: var(--accent);
+      margin: 0 auto 32px;
+    }
+    .about-left { text-align: center; }
+    .about-available {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(79,142,247,.12);
+      border: 1px solid rgba(79,142,247,.25);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+    .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:.4; transform:scale(.7); }
+    }
+    .about-right p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-right p:last-of-type { margin-bottom: 0; }
+    .about-highlight {
+      display: inline;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ════════════════════════════════════════
+       SKILLS
+    ════════════════════════════════════════ */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+      margin-top: 56px;
+    }
+    .skill-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge-learning {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      background: rgba(168,85,247,.15);
+      color: #c084fc;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      transition: border-color .2s, background .2s, transform .15s;
+      cursor: default;
+    }
+    .skill-pill:hover {
+      border-color: rgba(255,255,255,.22);
+      background: var(--bg-card2);
+      transform: translateY(-2px);
+    }
+    .skill-pill img {
+      width: 18px; height: 18px;
+      object-fit: contain;
+    }
+    .skill-pill--ai {
+      border-color: rgba(168,85,247,.25);
+      background: rgba(168,85,247,.08);
+    }
+    .skill-pill--ai:hover {
+      border-color: rgba(168,85,247,.5);
+      background: rgba(168,85,247,.15);
+    }
+    .ai-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent-ai);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       WORKS
+    ════════════════════════════════════════ */
+    #works {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .project-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .2s, transform .2s;
+    }
+    .project-card:hover {
+      border-color: rgba(79,142,247,.35);
+      transform: translateY(-4px);
+    }
+    .project-preview {
+      height: 200px;
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a2e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-preview.netflix { background: linear-gradient(135deg, #141414, #e50914 220%); }
+    .project-preview.ecommerce { background: linear-gradient(135deg, #141414, #4f8ef7 220%); }
+    .project-preview-label {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .5;
+      color: var(--text);
+    }
+    .project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .stack-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(79,142,247,.12);
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .project-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .project-points {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+    .project-points li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 4px 0;
+      padding-left: 18px;
+      position: relative;
+    }
+    .project-points li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+    .project-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-project {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn-project:hover { opacity: .8; transform: translateY(-1px); }
+    .btn-project--primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-project--ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* ════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════ */
+    #contact { background: var(--bg); }
+    .contact-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 56px 48px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    @media(max-width:600px){ .contact-box { padding: 40px 24px; } }
+    .contact-box .section-sub { margin: 16px auto 32px; }
+    .contact-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn-contact:hover { opacity: .8; transform: translateY(-2px); }
+    .btn-contact--primary { background: var(--accent); color: #fff; }
+    .btn-contact--ghost { border: 1px solid var(--border); color: var(--text); }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .portfolio-footer {
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+  <!-- ════════════════════════════════════════════════════════════════════ -->
 </head>
+
 <body>
 
-    <section class="container">
-        <div class="main-width">
-            <header>
-                <div class="logo">
-                    <a href="#"><i class="fa-solid fa-e"></i></a>
-                </div>
-
-                <nav>
-                    <div class="ham">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-
-                    <ul class="nav-list">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Works</a></li>
-                        <li class="btn"><a href="#">Contact me</a></li>
-                    </ul>
-                </nav>
-            </header>
-
-            <div class="container-text">
-                <div class="text">
-                    <h3>Hi, There!</h3>
-                    <h1>I Am <span class="effect"></span></h1>
-                    <p>I'm a Full Stack Developer and I have experience modeling and designing web sites specializing with HTML, CSS and JavaScript!</p>
-                    <div class="social">
-                        <a href="https://www.facebook.com/EdgarMontoya93/" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://github.com/edgarmontoya935" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                    <button type="button">More About Me</button>
-                </div>
-                <div class="bottom">
-                    <p><i class="fa-solid fa-copyright"></i> 2022 Edgar Montoya.</p>
-                </div>
-            </div>
+<!-- ════════════════════════════════════════
+     HERO (original, con textos actualizados)
+════════════════════════════════════════ -->
+<section class="container">
+  <div class="main-width">
+    <header>
+      <div class="logo">
+        <a href="#"><i class="fa-solid fa-e"></i></a>
+      </div>
+      <nav>
+        <div class="ham">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-    </section>
+        <ul class="nav-list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#works">Works</a></li>
+          <li class="btn"><a href="#contact">Contact me</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    <script type="text/javascript" src="js/script.js"></script>
+    <div class="container-text">
+      <div class="text">
+        <h3>Hi, I'm Edgar! 👋</h3>
+        <h1>I Am <span class="effect"></span></h1>
+        <p>Desarrollo experiencias web modernas, rápidas y escalables — desde interfaces pixel-perfect hasta flujos de trabajo potenciados con IA. Disponible para proyectos remotos e internacionales.</p>
 
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script>
-        var typed = new Typed(".effect", {
-            strings:["Edgar Montoya.", "Programmer.", "Web Developer."],
-            typeSpeed: 70,
-            backSpeed: 60,
-            loop:true
-        });
-    </script>
-    
+        <div class="social">
+          <a href="https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/" target="_blank" title="LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/edgarmontoya935" target="_blank" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+          <button type="button" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">
+            Ver proyectos
+          </button>
+          <button type="button" class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:inherit;">
+            Hablemos
+          </button>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <p><i class="fa-solid fa-copyright"></i> <span id="footer-year"></span> Edgar Montoya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════ -->
+<section id="about">
+  <div class="inner">
+    <div class="about-grid">
+
+      <div class="about-left">
+        <div class="about-avatar">
+          <!-- Reemplazá esto con tu foto:
+               <img src="assets/foto.jpg" alt="Edgar Montoya" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          -->
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="about-available">
+          <span class="pulse"></span>
+          Disponible para proyectos
+        </div>
+      </div>
+
+      <div class="about-right">
+        <p class="section-eyebrow">Sobre mí</p>
+        <h2 class="section-title">Construyo web.<br>Integro IA.</h2>
+
+        <p>
+          Soy Edgar Montoya, desarrollador <span class="about-highlight">Full Stack</span> con foco en la construcción de interfaces web de alta calidad.
+          Empecé creando sitios con HTML, CSS y JavaScript puro, y fui expandiendo mi stack hacia
+          <span class="about-highlight">React, TypeScript, Node.js y MongoDB</span> para trabajar a lo largo de toda la aplicación.
+        </p>
+
+        <p>
+          Lo que más me apasiona hoy es la intersección entre el desarrollo web y la inteligencia artificial.
+          Estoy integrando activamente herramientas como <span class="about-highlight">OpenAI, Claude y n8n</span> en mis proyectos —
+          convencido de que la IA no reemplaza al desarrollador, sino que lo potencia.
+        </p>
+
+        <p>
+          Busco proyectos donde pueda aportar tanto en el código como en la experiencia de usuario —
+          construyendo productos que funcionen bien y se sientan aún mejor.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     SKILLS
+════════════════════════════════════════ -->
+<section id="skills">
+  <div class="inner">
+    <p class="section-eyebrow">Lo que uso</p>
+    <h2 class="section-title">Stack & Tecnologías</h2>
+    <p class="section-sub">Herramientas con las que construyo, escalo y automatizo proyectos web.</p>
+
+    <div class="skills-grid">
+
+      <!-- Frontend -->
+      <div>
+        <p class="skill-group-title">Frontend</p>
+        <div class="skill-pills">
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"> HTML5
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"> CSS3
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"> JavaScript
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript"> TypeScript
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"> React
+          </span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div>
+        <p class="skill-group-title">Backend & Datos</p>
+        <div class="skill-pills">
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"> Node.js
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"> MongoDB
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"> Python
+          </span>
+        </div>
+      </div>
+
+      <!-- IA -->
+      <div>
+        <p class="skill-group-title">IA & Automatización <span class="badge-learning">Aprendiendo</span></p>
+        <div class="skill-pills">
+          <span class="skill-pill skill-pill--ai"><span class="ai-dot"></span> OpenAI</span>
+          <span class="skill-pill skill-pill--ai"><span class="ai-dot"></span> Claude</span>
+          <span class="skill-pill skill-pill--ai"><span class="ai-dot"></span> Cursor</span>
+          <span class="skill-pill skill-pill--ai"><span class="ai-dot"></span> n8n</span>
+          <span class="skill-pill skill-pill--ai"><span class="ai-dot"></span> Codex</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div>
+        <p class="skill-group-title">Herramientas</p>
+        <div class="skill-pills">
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"> Git
+          </span>
+          <span class="skill-pill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"> GitHub
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     WORKS
+════════════════════════════════════════ -->
+<section id="works">
+  <div class="inner">
+    <p class="section-eyebrow">Proyectos</p>
+    <h2 class="section-title">Lo que construí</h2>
+    <p class="section-sub">Proyectos frontend que demuestran mi capacidad para replicar sistemas de diseño complejos y construir experiencias web completas.</p>
+
+    <div class="works-grid">
+
+      <!-- Netflix Clone -->
+      <div class="project-card">
+        <div class="project-preview netflix">
+          <i class="fa-brands fa-youtube" style="color:#e50914;filter:drop-shadow(0 0 24px #e50914aa)"></i>
+          <span class="project-preview-label">UI Clone</span>
+        </div>
+        <div class="project-body">
+          <div class="project-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">JavaScript</span>
+          </div>
+          <h3 class="project-name">Netflix Clone</h3>
+          <p class="project-desc">
+            Réplica fiel de la interfaz de Netflix construida desde cero. Pone el foco en la precisión visual: carruseles de contenido, grillas de películas, menú de navegación y diseño completamente responsive.
+          </p>
+          <ul class="project-points">
+            <li>Dominio de CSS avanzado (Flexbox, Grid, variables CSS)</li>
+            <li>Réplica de sistemas de diseño complejos sin frameworks</li>
+            <li>Código limpio sin dependencias externas</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://edgarmontoya935.github.io/netflix/" target="_blank" class="btn-project btn-project--primary">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver demo
+            </a>
+            <a href="https://github.com/edgarmontoya935/edgarmontoya935.github.io/tree/main/netflix" target="_blank" class="btn-project btn-project--ghost">
+              <i class="fa-brands fa-github"></i> Código
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RedStore E-Commerce -->
+      <div class="project-card">
+        <div class="project-preview ecommerce">
+          <i class="fa-solid fa-bag-shopping" style="color:#4f8ef7;filter:drop-shadow(0 0 24px #4f8ef7aa)"></i>
+          <span class="project-preview-label">E-Commerce</span>
+        </div>
+        <div class="project-body">
+          <div class="project-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">JavaScript</span>
+          </div>
+          <h3 class="project-name">RedStore</h3>
+          <p class="project-desc">
+            Tienda online completa de indumentaria y accesorios deportivos. Incluye catálogo con productos, página de detalle, carrito de compras y gestión de cuenta — diseño orientado a la conversión.
+          </p>
+          <ul class="project-points">
+            <li>Arquitectura multi-página organizada y escalable</li>
+            <li>UX de e-commerce con flujo completo de compra</li>
+            <li>Diseño responsive con atención al detalle visual</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://edgarmontoya935.github.io/ecommerce/" target="_blank" class="btn-project btn-project--primary">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver demo
+            </a>
+            <a href="https://github.com/edgarmontoya935/edgarmontoya935.github.io/tree/main/ecommerce" target="_blank" class="btn-project btn-project--ghost">
+              <i class="fa-brands fa-github"></i> Código
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-box">
+      <p class="section-eyebrow">Contacto</p>
+      <h2 class="section-title">¿Hablamos?</h2>
+      <p class="section-sub">
+        Estoy disponible para proyectos freelance, trabajo remoto y oportunidades de colaboración. No dudes en escribirme.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:eemr1993@gmail.com" class="btn-contact btn-contact--primary">
+          <i class="fa-solid fa-envelope"></i> Enviar email
+        </a>
+        <a href="https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/" target="_blank" class="btn-contact btn-contact--ghost">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/edgarmontoya935" target="_blank" class="btn-contact btn-contact--ghost">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="portfolio-footer">
+  <p><i class="fa-solid fa-copyright"></i> <span id="footer-year-bottom"></span> Edgar Montoya — Full Stack Developer</p>
+</footer>
+
+
+<!-- ════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  // Typed.js — efecto de escritura en el hero
+  new Typed(".effect", {
+    strings: ["Edgar Montoya.", "Full Stack Dev.", "AI Enthusiast."],
+    typeSpeed: 70,
+    backSpeed: 60,
+    loop: true
+  });
+
+  // Copyright dinámico
+  const year = new Date().getFullYear();
+  document.getElementById("footer-year").textContent = year;
+  document.getElementById("footer-year-bottom").textContent = year;
+</script>
+
 </body>
 </html>
