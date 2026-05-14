@@ -1,4 +1,4 @@
-e<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -14,11 +14,11 @@ e<!DOCTYPE html>
   <meta property="og:url" content="https://edgarmontoya935.github.io/"/>
   <meta property="og:title" content="Edgar Montoya — Full Stack Developer & AI Enthusiast"/>
   <meta property="og:description" content="Desarrollo experiencias web modernas y escalables. React · TypeScript · Node.js · OpenAI · Claude."/>
-  <meta property="og:image" content="https://edgarmontoya935.github.io/assets/og-preview.png"/>
+  <meta property="og:image" content="https://edgarmontoya935.github.io/assets/og-preview.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Edgar Montoya — Full Stack Developer"/>
   <meta name="twitter:description" content="Full Stack Developer & AI Enthusiast. React · TypeScript · Node.js · OpenAI · Claude."/>
-  <meta name="twitter:image" content="https://edgarmontoya935.github.io/assets/og-preview.png"/>
+  <meta name="twitter:image" content="https://edgarmontoya935.github.io/assets/og-preview.jpg"/>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Edgar Montoya","url":"https://edgarmontoya935.github.io/","jobTitle":"Full Stack Developer","sameAs":["https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/","https://github.com/edgarmontoya935"]}</script>
 
   <!-- Fonts & Icons -->
@@ -26,7 +26,7 @@ e<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/script.js"></script>
+  <script src="./js/main.js"></script>
 
   <style>
     /* ══════════════════════════════════════
@@ -668,6 +668,35 @@ e<!DOCTYPE html>
       .skills-grid { grid-template-columns:1fr; }
       .works-grid { grid-template-columns:1fr; }
     }
+
+    /* ── Botón scroll to top ── */
+    .scroll-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      z-index: 150;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 4px 20px var(--blue-glow);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .3s, transform .3s, background .2s, box-shadow .2s;
+      pointer-events: none;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .scroll-top:hover {
+      background: #3a7de8;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px var(--blue-glow);
+    }
   </style>
 </head>
 <body>
@@ -966,6 +995,11 @@ e<!DOCTYPE html>
 </footer>
 
 
+<!-- ════════ SCROLL TO TOP ════════ -->
+<button class="scroll-top" id="scroll-top" aria-label="Volver arriba">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
 <!-- ════════ SCRIPTS ════════ -->
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
@@ -1030,6 +1064,16 @@ e<!DOCTYPE html>
       card.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)";
     });
   });
+
+  /* ── Scroll to top ── */
+  const scrollBtn = document.getElementById("scroll-top");
+  window.addEventListener("scroll", () => {
+    scrollBtn.classList.toggle("visible", window.scrollY > 400);
+  });
+  scrollBtn.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  );
 </script>
+
 </body>
 </html>
