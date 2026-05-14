@@ -123,23 +123,118 @@
     .ham.open span:nth-child(2) { opacity: 0; }
     .ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+    /* ── Mobile nav ──────────────────────── */
     @media(max-width:768px) {
       .ham { display: flex; }
-      .nav-links {
-        position: fixed; top: 0; right: -100%; bottom: 0;
-        width: 260px;
-        flex-direction: column;
-        gap: 0;
-        background: rgba(10,10,16,0.98);
-        backdrop-filter: blur(24px);
-        border-left: 0.5px solid var(--border);
-        padding: 100px 32px 40px;
-        transition: right .35s cubic-bezier(.4,0,.2,1);
-      }
-      .nav-links.open { right: 0; }
-      .nav-links a { font-size: 18px; padding: 12px 0; border-bottom: 0.5px solid var(--border); width: 100%; }
-      .nav-cta { margin-top: 20px; text-align: center; }
+      nav.glass-nav { padding: 0 20px; }
+      /* El panel mobile se mueve FUERA del nav via JS,
+         estos estilos del .nav-links de desktop lo ocultan en mobile */
+      .nav-links { display: none; }
     }
+
+    /* Botón hamburger mejorado */
+    .ham {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      padding: 10px;
+      cursor: pointer;
+      background: var(--glass);
+      border: .5px solid var(--border);
+      border-radius: 10px;
+      transition: background .2s;
+      z-index: 110;
+    }
+    .ham:hover { background: var(--glass-hover); }
+    .ham span {
+      display: block;
+      width: 18px; height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+      transform-origin: center;
+    }
+    .ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Backdrop del menú mobile */
+    .mob-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .mob-backdrop.show    { display: block; }
+    .mob-backdrop.visible { opacity: 1; }
+
+    /* Panel deslizante — FUERA del nav para evitar el bug de backdrop-filter */
+    .mob-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0; z-index: 195;
+      width: min(300px, 88vw);
+      background: rgba(6,6,14,.97);
+      border-left: .5px solid var(--border);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      padding: 80px 24px 32px;
+      display: flex; flex-direction: column; gap: 4px;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .mob-panel.open { transform: translateX(0); }
+
+    .mob-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--glass); border: .5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--muted); font-size: 15px;
+      transition: background .2s, color .2s;
+    }
+    .mob-close:hover { background: var(--glass-hover); color: var(--text); }
+
+    .mob-panel a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; border-radius: 12px;
+      font-size: 16px; font-weight: 500;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .mob-panel a i {
+      width: 20px; font-size: 15px;
+      color: var(--blue); opacity: .7;
+      transition: opacity .2s;
+    }
+    .mob-panel a:hover { background: var(--glass-hover); color: var(--text); }
+    .mob-panel a:hover i { opacity: 1; }
+
+    .mob-panel .mob-cta {
+      margin-top: 8px;
+      background: var(--blue); color: #fff;
+      justify-content: center; border-radius: 12px;
+    }
+    .mob-panel .mob-cta i { color: #fff; opacity: 1; }
+    .mob-panel .mob-cta:hover { opacity: .88; }
+
+    .mob-socials {
+      margin-top: auto; padding-top: 20px;
+      border-top: .5px solid var(--border);
+      display: flex; gap: 10px;
+    }
+    .mob-soc {
+      flex: 1; display: flex; align-items: center;
+      justify-content: center; gap: 6px;
+      padding: 10px; border-radius: 10px;
+      background: var(--glass); border: .5px solid var(--border);
+      color: var(--muted); font-size: 13px;
+      transition: background .2s, color .2s;
+    }
+    .mob-soc:hover { background: var(--glass-hover); color: var(--text); }
 
     /* ══════════════════════════════════════
        SECTION SHARED
@@ -257,10 +352,22 @@
       font-weight: 900;
       line-height: 1.08;
       color: var(--text);
-      margin-bottom: 20px;
+      margin-bottom: 4px;        /* reducido: typed-block maneja el espacio */
       letter-spacing: -.02em;
     }
-    .hero-h1 .typed-wrapper { color: var(--blue); }
+    /* FIX TIPEO: bloque separado, ancho fijo, sin re-centrado */
+    .typed-block {
+      display: block;            /* bloque independiente, nunca inline */
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--blue);
+      min-height: 1.12em;        /* altura fija → no salta verticalmente */
+      white-space: nowrap;       /* no hace wrap → no cambia la altura */
+      overflow: hidden;          /* en mobile evita scroll horizontal */
+      margin-bottom: 20px;
+    }
     .hero-p {
       font-size: clamp(15px,1.8vw,18px);
       color: var(--muted);
@@ -447,6 +554,17 @@
     .thumb-ecommerce{ background:linear-gradient(135deg,#080810 0%,#0a1a30 60%,#0e2550 100%); }
     .thumb i { position:relative;z-index:1; }
 
+    /* Screenshot real encima del fondo de fallback */
+    .thumb-shot {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      opacity: .88;
+      transition: opacity .3s, transform .5s ease;
+      z-index: 2;
+    }
+    .project-card:hover .thumb-shot { opacity: 1; transform: scale(1.04); }
+
     .thumb-tag {
       position:absolute; bottom:14px; right:16px;
       font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
@@ -566,6 +684,30 @@
   </div>
 </nav>
 
+<!-- Backdrop mobile (fuera del nav para evitar bug backdrop-filter) -->
+<div class="mob-backdrop" id="mob-backdrop"></div>
+
+<!-- Panel mobile deslizante -->
+<div class="mob-panel" id="mob-panel">
+  <button class="mob-close" id="mob-close" aria-label="Cerrar menú">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <a href="#about"   data-mc><i class="fa-solid fa-user"></i>      About</a>
+  <a href="#skills"  data-mc><i class="fa-solid fa-code"></i>      Skills</a>
+  <a href="#works"   data-mc><i class="fa-solid fa-briefcase"></i> Works</a>
+  <a href="#contact" data-mc class="mob-cta">
+    <i class="fa-solid fa-envelope"></i> Contact me
+  </a>
+  <div class="mob-socials">
+    <a href="https://www.linkedin.com/in/edgar-enrique-montoya-rodriguez-64472219b/" target="_blank" class="mob-soc">
+      <i class="fa-brands fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/edgarmontoya935" target="_blank" class="mob-soc">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+  </div>
+</div>
+
 
 <!-- ════════ HERO ════════ -->
 <section id="hero">
@@ -579,10 +721,8 @@
       Disponible para nuevos proyectos
     </div>
 
-    <h1 class="hero-h1">
-      Hello! I'm<br>
-      <span class="typed-wrapper"><span class="effect"></span></span>
-    </h1>
+    <h1 class="hero-h1">Hello! I'm</h1>
+    <div class="typed-block"><span class="effect"></span></div>
 
     <p class="hero-p">
       Desarrollo experiencias web modernas, rápidas y escalables —
@@ -718,6 +858,11 @@
       <div class="project-card reveal" data-tilt>
         <div class="thumb thumb-netflix">
           <i class="fa-brands fa-youtube" style="color:#e50914;filter:drop-shadow(0 0 32px rgba(229,9,20,.7))"></i>
+          <img class="thumb-shot"
+               src="assets/netflix-preview.png"
+               alt="Netflix Clone preview"
+               loading="lazy"
+               onerror="this.style.display='none'">
           <span class="thumb-tag">UI Clone</span>
         </div>
         <div class="proj-body">
@@ -748,6 +893,11 @@
       <div class="project-card reveal" data-tilt style="transition-delay:.1s">
         <div class="thumb thumb-ecommerce">
           <i class="fa-solid fa-bag-shopping" style="color:var(--blue);filter:drop-shadow(0 0 32px rgba(79,142,247,.7))"></i>
+          <img class="thumb-shot"
+               src="assets/ecommerce-preview.png"
+               alt="RedStore E-Commerce preview"
+               loading="lazy"
+               onerror="this.style.display='none'">
           <span class="thumb-tag">E-Commerce</span>
         </div>
         <div class="proj-body">
@@ -826,17 +976,38 @@
   /* ── Copyright dinámico ── */
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ── Hamburger nav ── */
-  const ham = document.getElementById("ham");
-  const nav = document.getElementById("nav-links");
-  ham.addEventListener("click", () => {
-    ham.classList.toggle("open");
-    nav.classList.toggle("open");
-  });
-  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  /* ── Menú mobile ── */
+  const ham          = document.getElementById("ham");
+  const mobPanel     = document.getElementById("mob-panel");
+  const mobBackdrop  = document.getElementById("mob-backdrop");
+  const mobClose     = document.getElementById("mob-close");
+
+  function openNav() {
+    ham.classList.add("open");
+    mobPanel.classList.add("open");
+    mobBackdrop.classList.add("show");
+    requestAnimationFrame(() => mobBackdrop.classList.add("visible"));
+    document.body.style.overflow = "hidden";
+  }
+  function closeNav() {
     ham.classList.remove("open");
-    nav.classList.remove("open");
-  }));
+    mobPanel.classList.remove("open");
+    mobBackdrop.classList.remove("visible");
+    setTimeout(() => mobBackdrop.classList.remove("show"), 320);
+    document.body.style.overflow = "";
+  }
+
+  ham.addEventListener("click", () =>
+    ham.classList.contains("open") ? closeNav() : openNav()
+  );
+  mobClose.addEventListener("click", closeNav);
+  mobBackdrop.addEventListener("click", closeNav);
+  document.querySelectorAll("[data-mc]").forEach(a =>
+    a.addEventListener("click", closeNav)
+  );
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) closeNav();
+  });
 
   /* ── Scroll reveal (IntersectionObserver) ── */
   const observer = new IntersectionObserver((entries) => {
