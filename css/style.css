@@ -60,7 +60,7 @@ nav .ham {
     top: 13px;
     z-index: 5;
     background: transparent;
-    position: absolute;
+    position: static;
     cursor: pointer;
     display: none;
 }
