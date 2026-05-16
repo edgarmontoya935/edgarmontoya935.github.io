@@ -375,20 +375,20 @@
 
     <div class="filter-group">
       <div class="filter-group-title">Categoría</div>
-      <label class="filter-option checked"><input type="checkbox" checked> Todos</label>
-      <label class="filter-option"><input type="checkbox"> Buzos</label>
-      <label class="filter-option"><input type="checkbox"> Remeras</label>
-      <label class="filter-option"><input type="checkbox"> Jerseys</label>
-      <label class="filter-option"><input type="checkbox"> Joggers</label>
-      <label class="filter-option"><input type="checkbox"> Conjuntos</label>
+      <label class="filter-option checked"><input type="checkbox" data-cat="todos" checked onchange="onCatCheck(this)"> Todos</label>
+      <label class="filter-option"><input type="checkbox" data-cat="buzos" onchange="onCatCheck(this)"> Buzos</label>
+      <label class="filter-option"><input type="checkbox" data-cat="remeras" onchange="onCatCheck(this)"> Remeras</label>
+      <label class="filter-option"><input type="checkbox" data-cat="jerseys" onchange="onCatCheck(this)"> Jerseys</label>
+      <label class="filter-option"><input type="checkbox" data-cat="joggers" onchange="onCatCheck(this)"> Joggers</label>
+      <label class="filter-option"><input type="checkbox" data-cat="conjuntos" onchange="onCatCheck(this)"> Conjuntos</label>
     </div>
 
     <div class="filter-group">
       <div class="filter-group-title">Temporada</div>
-      <label class="filter-option"><input type="checkbox"> 🌸 Primavera</label>
-      <label class="filter-option"><input type="checkbox"> ☀️ Verano</label>
-      <label class="filter-option"><input type="checkbox"> 🍂 Otoño</label>
-      <label class="filter-option"><input type="checkbox"> ❄️ Invierno</label>
+      <label class="filter-option"><input type="checkbox" data-season="primavera" onchange="onSeasonCheck(this)"> 🌸 Primavera</label>
+      <label class="filter-option"><input type="checkbox" data-season="verano" onchange="onSeasonCheck(this)"> ☀️ Verano</label>
+      <label class="filter-option"><input type="checkbox" data-season="otono" onchange="onSeasonCheck(this)"> 🍂 Otoño</label>
+      <label class="filter-option"><input type="checkbox" data-season="invierno" onchange="onSeasonCheck(this)"> ❄️ Invierno</label>
     </div>
 
     <div class="filter-group">
@@ -431,7 +431,7 @@
       </div>
     </div>
 
-    <button class="clear-filters">Limpiar filtros</button>
+    <button class="clear-filters" onclick="clearAllFilters()">Limpiar filtros</button>
   </aside>
 
   <!-- PRODUCT GRID -->
@@ -714,40 +714,126 @@
 </a>
 
 <script>
-  // ── FILTER BY CATEGORY ──
-  function filterCat(cat, btn) {
-    if (btn) {
-      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-    }
-    var cards = document.querySelectorAll('#products-grid .product-card');
-    var count = 0;
-    cards.forEach(function(card) {
-      var match = cat === 'todos' || card.dataset.cat === cat;
-      card.style.display = match ? '' : 'none';
-      if (match) count++;
-    });
-    document.getElementById('results-count').textContent = 'Mostrando ' + count + ' producto' + (count !== 1 ? 's' : '');
+  // ── ESTADO DE FILTROS ──
+  var state = { cats: [], seasons: [] };
+
+  function catInputs()    { return document.querySelectorAll('input[data-cat]'); }
+  function seasonInputs() { return document.querySelectorAll('input[data-season]'); }
+  function setLabel(chk, active) {
+    var lbl = chk ? chk.closest('label') : null;
+    if (lbl) lbl.classList.toggle('checked', active);
   }
 
-  // ── FILTER BY SEASON ──
-  function filterSeason(season, btn) {
-    if (btn) {
-      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-    }
+  function applyFilters() {
     var cards = document.querySelectorAll('#products-grid .product-card');
     var count = 0;
     cards.forEach(function(card) {
-      var match = card.dataset.season === season;
-      card.style.display = match ? '' : 'none';
-      if (match) count++;
+      var catMatch    = state.cats.length === 0    || state.cats.indexOf(card.dataset.cat) !== -1;
+      var seasonMatch = state.seasons.length === 0 || state.seasons.indexOf(card.dataset.season) !== -1;
+      var show = catMatch && seasonMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) count++;
     });
-    document.getElementById('results-count').textContent = 'Mostrando ' + count + ' producto' + (count !== 1 ? 's' : '');
+    document.getElementById('results-count').textContent =
+      'Mostrando ' + count + ' producto' + (count !== 1 ? 's' : '');
+  }
+
+  function onCatCheck(chk) {
+    var cat = chk.dataset.cat;
+    if (cat === 'todos') {
+      catInputs().forEach(function(c) {
+        if (c.dataset.cat !== 'todos') { c.checked = false; setLabel(c, false); }
+      });
+      state.cats = [];
+    } else {
+      var todosChk = document.querySelector('input[data-cat="todos"]');
+      if (todosChk) { todosChk.checked = false; setLabel(todosChk, false); }
+      if (chk.checked) {
+        if (state.cats.indexOf(cat) === -1) state.cats.push(cat);
+      } else {
+        state.cats = state.cats.filter(function(c) { return c !== cat; });
+      }
+      if (state.cats.length === 0) {
+        if (todosChk) { todosChk.checked = true; setLabel(todosChk, true); }
+      }
+    }
+    setLabel(chk, chk.checked);
+    syncPills();
+    applyFilters();
+  }
+
+  function onSeasonCheck(chk) {
+    var season = chk.dataset.season;
+    if (chk.checked) {
+      if (state.seasons.indexOf(season) === -1) state.seasons.push(season);
+    } else {
+      state.seasons = state.seasons.filter(function(s) { return s !== season; });
+    }
+    setLabel(chk, chk.checked);
+    applyFilters();
+  }
+
+  function filterCat(cat, btn) {
+    state.cats = cat === 'todos' ? [] : [cat];
+    if (btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+    catInputs().forEach(function(chk) {
+      var match = cat === 'todos' ? chk.dataset.cat === 'todos' : chk.dataset.cat === cat;
+      chk.checked = match;
+      setLabel(chk, match);
+    });
+    applyFilters();
+  }
+
+  function filterSeason(season, btn) {
+    state.seasons = [season];
+    state.cats    = [];
+    if (btn) {
+      document.querySelectorAll('.cat-pill').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+    catInputs().forEach(function(chk) {
+      var isTodos = chk.dataset.cat === 'todos';
+      chk.checked = isTodos;
+      setLabel(chk, isTodos);
+    });
+    seasonInputs().forEach(function(chk) {
+      var match = chk.dataset.season === season;
+      chk.checked = match;
+      setLabel(chk, match);
+    });
+    applyFilters();
     document.querySelector('#products-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ── TOGGLE SIDEBAR ──
+  function syncPills() {
+    var pills = document.querySelectorAll('.cat-pill');
+    pills.forEach(function(p) { p.classList.remove('active'); });
+    if (state.cats.length === 1) {
+      pills.forEach(function(p) {
+        if (p.textContent.trim().toLowerCase() === state.cats[0]) p.classList.add('active');
+      });
+    } else if (state.cats.length === 0) {
+      if (pills[0]) pills[0].classList.add('active');
+    }
+  }
+
+  function clearAllFilters() {
+    state.cats = []; state.seasons = [];
+    catInputs().forEach(function(chk) {
+      var isTodos = chk.dataset.cat === 'todos';
+      chk.checked = isTodos; setLabel(chk, isTodos);
+    });
+    seasonInputs().forEach(function(chk) { chk.checked = false; setLabel(chk, false); });
+    document.querySelectorAll('.cat-pill').forEach(function(p) { p.classList.remove('active'); });
+    var first = document.querySelector('.cat-pill');
+    if (first) first.classList.add('active');
+    applyFilters();
+  }
+
+    // ── TOGGLE SIDEBAR ──
   function toggleFilter(btn) {
     btn.classList.toggle('active');
     var sidebar = document.getElementById('sidebar');
