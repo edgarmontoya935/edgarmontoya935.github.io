@@ -25,8 +25,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="./js/main.js"></script>
 
   <style>
     /* ══════════════════════════════════════
@@ -127,7 +125,8 @@
 
     /* ── Mobile nav ──────────────────────── */
     @media(max-width:768px) {
-      .ham { display: flex; }
+      .ham,
+      nav.glass-nav .ham { display: flex; }
       nav.glass-nav { padding: 0 20px; }
       /* El panel mobile se mueve FUERA del nav via JS,
          estos estilos del .nav-links de desktop lo ocultan en mobile */
@@ -149,18 +148,31 @@
       transition: background .2s;
       z-index: 110;
     }
+    nav.glass-nav .ham {
+      position: relative;
+      inset: auto;
+      display: none;
+      flex: 0 0 40px;
+      align-items: center;
+      justify-content: center;
+    }
     .ham:hover { background: var(--glass-hover); }
-    .ham span {
+    .ham span,
+    nav.glass-nav .ham span {
       display: block;
       width: 18px; height: 1.5px;
-      background: var(--text);
+      background: var(--blue);
       border-radius: 2px;
+      margin: 0;
       transition: transform .3s, opacity .3s;
       transform-origin: center;
     }
     .ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    @media(max-width:768px) {
+      nav.glass-nav .ham { display: flex; }
+    }
 
     /* Backdrop del menú mobile */
     .mob-backdrop {
@@ -357,9 +369,10 @@
       margin-bottom: 4px;        /* reducido: typed-block maneja el espacio */
       letter-spacing: -.02em;
     }
-    /* FIX TIPEO: bloque separado, ancho fijo, sin re-centrado */
+    /* FIX TIPEO: ancho reservado para que Typed.js no desplace el hero */
     .typed-block {
-      display: block;            /* bloque independiente, nunca inline */
+      display: inline-grid;
+      grid-template-areas: "typed";
       font-size: clamp(40px, 7vw, 80px);
       font-weight: 900;
       line-height: 1.08;
@@ -368,7 +381,20 @@
       min-height: 1.12em;        /* altura fija → no salta verticalmente */
       white-space: nowrap;       /* no hace wrap → no cambia la altura */
       overflow: hidden;          /* en mobile evita scroll horizontal */
+      max-width: 100%;
+      text-align: left;
       margin-bottom: 20px;
+    }
+    .typed-live,
+    .typed-sizer {
+      grid-area: typed;
+      min-width: 0;
+      white-space: nowrap;
+    }
+    .typed-sizer {
+      visibility: hidden;
+      pointer-events: none;
+      user-select: none;
     }
     .hero-p {
       font-size: clamp(15px,1.8vw,18px);
@@ -665,8 +691,14 @@
       section { padding:72px 0; }
       .inner { padding:0 20px; }
       nav.glass-nav { padding:0 20px; }
+      #hero .hero-inner { padding:0 20px; }
+      .typed-block { font-size: 42px; }
       .skills-grid { grid-template-columns:1fr; }
       .works-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:380px) {
+      #hero .hero-inner { padding:0 16px; }
+      .typed-block { font-size: 32px; }
     }
 
     /* ── Botón scroll to top ── */
@@ -710,9 +742,9 @@
     <a href="#works">Works</a>
     <a href="#contact" class="nav-cta">Contact me</a>
   </div>
-  <div class="ham" id="ham">
+  <button class="ham" id="ham" type="button" aria-label="Abrir menú" aria-controls="mob-panel" aria-expanded="false">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <!-- Backdrop mobile (fuera del nav para evitar bug backdrop-filter) -->
@@ -753,7 +785,12 @@
     </div>
 
     <h1 class="hero-h1">Hello! I'm</h1>
-    <div class="typed-block"><span class="effect"></span></div>
+    <div class="typed-block">
+      <span class="typed-live"><span class="effect"></span></span>
+      <span class="typed-sizer" aria-hidden="true">Edgar Montoya.</span>
+      <span class="typed-sizer" aria-hidden="true">Web Developer</span>
+      <span class="typed-sizer" aria-hidden="true">AI Enthusiast.</span>
+    </div>
 
     <p class="hero-p">
       Desarrollo experiencias web modernas, rápidas y escalables —
@@ -1020,6 +1057,8 @@
 
   function openNav() {
     ham.classList.add("open");
+    ham.setAttribute("aria-expanded", "true");
+    ham.setAttribute("aria-label", "Cerrar menú");
     mobPanel.classList.add("open");
     mobBackdrop.classList.add("show");
     requestAnimationFrame(() => mobBackdrop.classList.add("visible"));
@@ -1027,6 +1066,8 @@
   }
   function closeNav() {
     ham.classList.remove("open");
+    ham.setAttribute("aria-expanded", "false");
+    ham.setAttribute("aria-label", "Abrir menú");
     mobPanel.classList.remove("open");
     mobBackdrop.classList.remove("visible");
     setTimeout(() => mobBackdrop.classList.remove("show"), 320);
