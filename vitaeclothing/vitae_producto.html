@@ -267,12 +267,16 @@
     position: fixed; inset: 0;
     background: rgba(30,18,8,.55); backdrop-filter: blur(3px);
     z-index: 900; display: flex; align-items: center; justify-content: center;
+    padding: clamp(12px, 4vw, 32px); overflow-y: auto;
     opacity: 0; pointer-events: none; transition: opacity .25s;
   }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
   .modal-box {
     background: var(--white); border-radius: 8px;
-    padding: 36px 40px; max-width: 520px; width: 90%;
+    padding: clamp(24px, 5vw, 36px) clamp(18px, 5vw, 40px);
+    max-width: 560px; width: min(100%, 560px);
+    max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px);
+    overflow-y: auto; overscroll-behavior: contain;
     position: relative; transform: translateY(16px); transition: transform .25s;
     box-shadow: 0 20px 60px rgba(30,18,8,.25);
   }
@@ -289,6 +293,7 @@
     margin-bottom: 6px;
   }
   .modal-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+  .size-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .size-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .size-table thead tr { background: var(--sand); }
   .size-table th {
@@ -301,6 +306,47 @@
   .size-table td:first-child { font-weight: 600; color: var(--text); }
   .size-table tr:hover td { background: rgba(200,170,138,.08); }
   .modal-note { font-size: 11px; color: var(--text-muted); margin-top: 16px; line-height: 1.7; padding-top: 14px; border-top: 1px solid var(--sand); }
+
+  @media (max-width: 560px) {
+    .modal-overlay { align-items: flex-start; padding: 10px; }
+    .modal-box {
+      width: 100%; max-height: calc(100vh - 20px); max-height: calc(100dvh - 20px);
+      padding: 24px 16px 18px; border-radius: 6px;
+    }
+    .modal-close {
+      top: 10px; right: 10px; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-title { font-size: 24px; padding-right: 38px; }
+    .modal-sub { margin-bottom: 14px; }
+    .size-table { border-collapse: separate; border-spacing: 0 8px; font-size: 12px; }
+    .size-table thead { display: none; }
+    .size-table,
+    .size-table tbody,
+    .size-table tr,
+    .size-table td { display: block; width: 100%; }
+    .size-table tr {
+      border: 1px solid var(--sand); border-radius: 6px;
+      overflow: hidden; background: rgba(232,221,208,.2);
+    }
+    .size-table td {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--sand);
+    }
+    .size-table td::before {
+      content: attr(data-label); flex: 0 0 auto;
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--umber); font-weight: 500; text-align: left;
+    }
+    .size-table tr:last-child td { border-bottom: 1px solid var(--sand); }
+    .size-table tr td:last-child { border-bottom: none; }
+    .size-table td:first-child {
+      background: var(--sand); color: var(--bark); font-size: 13px;
+    }
+    .size-table tr:hover td { background: transparent; }
+    .size-table tr:hover td:first-child { background: var(--sand); }
+    .modal-note { font-size: 10.5px; margin-top: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -315,9 +361,9 @@
     <nav>
       <a href="vitae_store.html">Inicio</a>
       <a href="vitae_catalogo.html">Colección</a>
-      <a href="#">Buzos</a>
-      <a href="#">Joggers</a>
-      <a href="#">Conjuntos</a>
+      <a href="vitae_catalogo.html">Buzos</a>
+      <a href="vitae_catalogo.html">Joggers</a>
+      <a href="vitae_catalogo.html">Conjuntos</a>
       <a href="#">Contacto</a>
     </nav>
   </div>
@@ -583,30 +629,32 @@
 
 
 <!-- MODAL GUÍA DE TALLES -->
-<div class="modal-overlay" id="sizeModal" onclick="closeSizeModal(event)">
+<div class="modal-overlay" id="sizeModal" onclick="handleModalBackdrop(event)">
   <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('sizeModal').classList.remove('open')">✕</button>
+    <button class="modal-close" onclick="closeSizeModal()">✕</button>
     <h2 class="modal-title">Guía de talles</h2>
     <p class="modal-sub">Medidas en centímetros · Buzo Vitae</p>
-    <table class="size-table">
-      <thead>
-        <tr>
-          <th>Talle</th>
-          <th>Pecho (cm)</th>
-          <th>Largo (cm)</th>
-          <th>Manga (cm)</th>
-          <th>Cintura (cm)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>XS</td><td>90 – 94</td><td>66</td><td>60</td><td>76 – 80</td></tr>
-        <tr><td>S</td><td>96 – 100</td><td>68</td><td>62</td><td>82 – 86</td></tr>
-        <tr><td>M</td><td>100 – 104</td><td>70</td><td>63</td><td>88 – 92</td></tr>
-        <tr><td>L</td><td>104 – 110</td><td>72</td><td>64</td><td>94 – 98</td></tr>
-        <tr><td>XL</td><td>110 – 116</td><td>74</td><td>65</td><td>100 – 106</td></tr>
-        <tr><td>XXL</td><td>116 – 122</td><td>76</td><td>66</td><td>108 – 114</td></tr>
-      </tbody>
-    </table>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>Talle</th>
+            <th>Pecho (cm)</th>
+            <th>Largo (cm)</th>
+            <th>Manga (cm)</th>
+            <th>Cintura (cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Talle">XS</td><td data-label="Pecho">90 – 94</td><td data-label="Largo">66</td><td data-label="Manga">60</td><td data-label="Cintura">76 – 80</td></tr>
+          <tr><td data-label="Talle">S</td><td data-label="Pecho">96 – 100</td><td data-label="Largo">68</td><td data-label="Manga">62</td><td data-label="Cintura">82 – 86</td></tr>
+          <tr><td data-label="Talle">M</td><td data-label="Pecho">100 – 104</td><td data-label="Largo">70</td><td data-label="Manga">63</td><td data-label="Cintura">88 – 92</td></tr>
+          <tr><td data-label="Talle">L</td><td data-label="Pecho">104 – 110</td><td data-label="Largo">72</td><td data-label="Manga">64</td><td data-label="Cintura">94 – 98</td></tr>
+          <tr><td data-label="Talle">XL</td><td data-label="Pecho">110 – 116</td><td data-label="Largo">74</td><td data-label="Manga">65</td><td data-label="Cintura">100 – 106</td></tr>
+          <tr><td data-label="Talle">XXL</td><td data-label="Pecho">116 – 122</td><td data-label="Largo">76</td><td data-label="Manga">66</td><td data-label="Cintura">108 – 114</td></tr>
+        </tbody>
+      </table>
+    </div>
     <p class="modal-note">
       💡 <strong>¿Dudás entre dos talles?</strong> Te recomendamos elegir el mayor para un corte más relajado, o el menor para un fit más ajustado.<br>
       Las medidas corresponden a las dimensiones de la prenda, no a las del cuerpo.
@@ -647,7 +695,7 @@
   }
 
   // ── MODAL GUÍA DE TALLES ──
-  function openSizeModal() {
+/*  function openSizeModal() {
     document.getElementById('sizeModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -662,7 +710,28 @@
       document.getElementById('sizeModal').classList.remove('open');
       document.body.style.overflow = '';
     }
-  });
+  });*/
+
+  // ── MODAL GUÍA DE TALLES ──
+function openSizeModal() {
+  document.getElementById('sizeModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSizeModal() {
+  document.getElementById('sizeModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleModalBackdrop(e) {
+  if (e.target === document.getElementById('sizeModal')) {
+    closeSizeModal();
+  }
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeSizeModal();
+});
 
   // ── ZOOM ──
   document.querySelector('.main-img-wrap').addEventListener('click', function(e) {
