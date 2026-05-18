@@ -22,8 +22,8 @@
 const edgar = {
   nombre:      "Edgar Montoya",
   ubicacion:   "Buenos Aires, Argentina 🇦🇷",
-  rol:         "Full Stack Developer (en formación)",
-  enfoque:     ["HTML", "CSS", "JavaScript", "desarrollo web"],
+  rol:         "Web Developer & AI Enthusiast.",
+  enfoque:     ["HTML", "CSS", "JavaScript", "AI Automation"],
   aprendiendo: ["React", "Node.js", "bases de datos"],
   objetivo:    "Convertir ideas en experiencias digitales impactantes",
   fun_fact:    "🎯 Siempre enfocado, siempre construyendo"
@@ -77,10 +77,61 @@ const edgar = {
 
 <div align="center">
 
-[![Trabajo Practico 05](https://github-readme-stats.vercel.app/api/pin/?username=edgarmontoya935&repo=Trabajo-Practico-05&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=a78bfa&icon_color=a78bfa&text_color=c9d1d9)](https://github.com/edgarmontoya935/Trabajo-Practico-05)
-[![Trabajo Practico 04](https://github-readme-stats.vercel.app/api/pin/?username=edgarmontoya935&repo=Trabajo-Practico-04&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=a78bfa&icon_color=a78bfa&text_color=c9d1d9)](https://github.com/edgarmontoya935/Trabajo-Practico-04)
-
-[![Portfolio](https://github-readme-stats.vercel.app/api/pin/?username=edgarmontoya935&repo=edgarmontoya935.github.io&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=a78bfa&icon_color=a78bfa&text_color=c9d1d9)](https://github.com/edgarmontoya935/edgarmontoya935.github.io)
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://edgarmontoya935.github.io" target="_blank">
+        <img src="https://edgarmontoya935.github.io/assets/portfolio-preview.png" alt="Portfolio Personal" width="100%" style="border-radius:8px"/>
+        <br/><br/>
+        <strong>🌐 Portfolio Personal</strong>
+      </a>
+      <br/>
+      <sub>Mi sitio web personal como desarrollador web. Diseño moderno, dark mode y secciones de proyectos y habilidades.</sub>
+      <br/><br/>
+      <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+      <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
+      <br/><br/>
+      <a href="https://edgarmontoya935.github.io">
+        <img src="https://img.shields.io/badge/🔗%20Ver%20sitio-7c3aed?style=for-the-badge"/>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://edgarmontoya935.github.io/netflix" target="_blank">
+        <img src="https://edgarmontoya935.github.io/assets/netflix-preview.png" alt="Netflix Clone" width="100%" style="border-radius:8px"/>
+        <br/><br/>
+        <strong>🎬 Netflix Clone</strong>
+      </a>
+      <br/>
+      <sub>Clon de la interfaz de Netflix con diseño responsivo, carruseles de contenido y modo oscuro.</sub>
+      <br/><br/>
+      <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+      <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
+      <br/><br/>
+      <a href="https://edgarmontoya935.github.io/netflix">
+        <img src="https://img.shields.io/badge/🔗%20Ver%20sitio-7c3aed?style=for-the-badge"/>
+      </a>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://edgarmontoya935.github.io/ecommerce" target="_blank">
+        <img src="https://edgarmontoya935.github.io/assets/ecommerce-preview.png" alt="E-Commerce" width="100%" style="border-radius:8px"/>
+        <br/><br/>
+        <strong>🛒 E-Commerce</strong>
+      </a>
+      <br/>
+      <sub>Tienda online con catálogo de productos, carrito de compras y diseño completamente responsivo.</sub>
+      <br/><br/>
+      <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/>
+      <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
+      <br/><br/>
+      <a href="https://edgarmontoya935.github.io/ecommerce">
+        <img src="https://img.shields.io/badge/🔗%20Ver%20sitio-7c3aed?style=for-the-badge"/>
+      </a>
+    </td>
+  </tr>
+</table>
 
 </div>
 
